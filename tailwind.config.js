@@ -10,12 +10,15 @@ module.exports = {
       "2xl": "1536px",
     },
     extend: {
+      backgroundImage: {
+        waves: "url('./img/blob-scene-haikei.svg')",
+      },
       colors: {
-        "beau-blue": "rgba(194, 211, 227, 1)",
-        "musta-onyx": "rgba(54, 59, 68, 1)",
-        "shadow-blue": "rgba(110, 130, 155, 1)",
-        "alice-blue": "rgba(227, 235, 238, 1)",
-        "rich-black-fogra-39": "rgba(12, 13, 18, 1)",
+        "mm-charcoal": "rgba(64, 76, 83, 1)",
+        "mm-alice-blue": "rgba(227, 235, 238, 1)",
+        "mm-cool-grey": "rgba(135, 146, 166, 1)",
+        "mm-jet": "rgba(53, 54, 51, 1)",
+        "mm-medium-carmine": "rgba(177, 65, 46, 1)",
       },
     },
   },

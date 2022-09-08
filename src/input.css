@@ -1,17 +1,33 @@
 @layer base {
+  body {
+    background-image: url("/img/blob-scene-haikei.svg");
+  }
     h1 {
-      @apply text-2xl;
+      @apply text-5xl font-bold text-center;
     }
     h2 {
-      @apply text-2xl text-gray-800 p-10;
+      @apply text-sm uppercase font-semibold;
     }
+    h3 {
+      @apply text-black text-2xl font-bold
+    }
+    p {
+      padding: 1rem 0rem;
+      
+    }
+    .info-box {
+      @apply bg-mm-medium-carmine bg-opacity-10 w-3/4 m-8 p-6 rounded-lg;
+    }
+    
 }
 
 @tailwind base;
 @tailwind components;
 @layer components {
+  
     .btn-blue {
       @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 w-fit px-4 mt-3 rounded;
     }
   }
 @tailwind utilities;
+

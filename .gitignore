@@ -192,4 +192,16 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Scalable Vector Graphics
+*.svg
+*.svgz
+
+# JPEG
+*.jpg
+*.jpeg
+*.jpe
+*.jif
+*.jfif
+*.jfi
+
 # End of https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,node
