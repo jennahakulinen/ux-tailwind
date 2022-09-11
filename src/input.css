@@ -1,12 +1,12 @@
 @layer base {
   body {
-    background-image: url("/img/blob-scene-haikei.svg");
+    background-image: url("/img/blob-scene-haikei (1).svg");
   }
     h1 {
       @apply text-5xl font-bold text-center;
     }
     h2 {
-      @apply text-sm uppercase font-semibold;
+      @apply text-2xl uppercase font-semibold;
     }
     h3 {
       @apply text-black text-2xl font-bold
@@ -16,7 +16,7 @@
       
     }
     .info-box {
-      @apply bg-mm-medium-carmine bg-opacity-10 w-3/4 m-8 p-6 rounded-lg;
+      @apply bg-mm-medium-carmine-opacity w-3/4 m-8 p-6 rounded-lg;
     }
     
 }

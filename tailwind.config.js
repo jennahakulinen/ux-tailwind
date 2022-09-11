@@ -19,6 +19,7 @@ module.exports = {
         "mm-cool-grey": "rgba(135, 146, 166, 1)",
         "mm-jet": "rgba(53, 54, 51, 1)",
         "mm-medium-carmine": "rgba(177, 65, 46, 1)",
+        "mm-medium-carmine-opacity": "rgba(177, 65, 46, 0.75)",
       },
     },
   },
