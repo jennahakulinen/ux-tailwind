@@ -4,31 +4,65 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../dist/output.css" rel="stylesheet">
+  <link href="https://vjs.zencdn.net/7.20.2/video-js.css" rel="stylesheet" />
+  <!-- Sea -->
+  <link href="https://unpkg.com/@videojs/themes@1/dist/sea/index.css" rel="stylesheet">
+  <script defer src="/socket.io/socket.io.js"></script>
+  <script defer src="chat.js"></script>
+
+  <style>
+    /* Change all text and icon colors in the player. */
+    .vjs-matrix.video-js {
+    color: rgba(227, 235, 238, 1);
+    }
+
+    /* Change the border of the big play button. */
+    .vjs-matrix .vjs-big-play-button {
+    border-color: rgba(227, 235, 238, 1);
+    }
+
+    /* Change the color of various "bars". */
+    .vjs-matrix .vjs-volume-level,
+    .vjs-matrix .vjs-play-progress,
+    .vjs-matrix .vjs-slider-bar {
+    background: rgba(227, 235, 238, 1);
+}
+</style>
 
 </head>
 <body class="w-full h-full bg-cover bg-no-repeat bg-center">
   
   <!-- <div class="lg:bg-mm-charcoal h-10"></div> -->
-  <header class="flex bg-mm-cool-grey h-28">
-    
-    <div class="container flex-col p-3 lg:p-5">
-      <h2 class="font-extrabold">Mahdollisuuksien</h2>
-      <h2 >Maisemia</h2>
-      <h2 class="text-sm" >Ke 5.10.2022</h2>
-      
-      <nav>
-        <!-- <a href="#">Etusivu</a>
-        <a href="#">Ajankohtaista</a>
-        <a href="#">Ohjelma</a>
-        <a href="#">Yhteystiedot</a> -->
-      </nav>
-      <!-- <button class="hamburger">
-        <div class="bar"></div>
-      </button> -->
-    </div>
+  <header class=" bg-mm-cool-grey h-28">
+    <nav class="fixed top-0 left-0 bg-white w-full shadow z-50">
+      <div class="container m-auto flex justify-between items-center text-gray-700">
+        <h1 class="pl-8 py-4 text-xl font-bold"> Mahdollisuuksien maisemia</h1>
+        <ul class="hidden md:flex items-center pr-10 text-base font-semibold cursor-pointer">
+          <li class="hover:bg-gray-200 py-4 px-6">Etusivu</li>
+          <li class="hover:bg-gray-200 py-4 px-6">Ajankohtaista</li>
+          <li class="hover:bg-gray-200 py-4 px-6">Ohjelma</li>
+          <li class="hover:bg-gray-200 py-4 px-6">Yhteystiedot</li>
+        </ul>
+        <button class="block md:hidden py-3 px-4 mx-2 rounded focus:outline-none hover:bg-gray-200 group">
+          <div class="w-5 h-1 bg-gray-600 mb-1"></div>
+          <div class="w-5 h-1 bg-gray-600 mb-1"></div>
+          <div class="w-5 h-1 bg-gray-600"></div>
+          <div class="absolute top-0 -right-full h-screen w-8/12 bg-white border opacity-0 group-focus:right-0 group-focus:opacity-100 transition-all
+          duration-300 z-50">
+            <ul class="flex flex-col items-center w-full text-base cursor-pointer pt-10">
+              <li class="hover:bg-gray-200 py-4 px-6 w-full">Etusivu</li>
+              <li class="hover:bg-gray-200 py-4 px-6 w-full">Ajankohtaista</li>
+              <li class="hover:bg-gray-200 py-4 px-6 w-full">Ohjelma</li>
+              <li class="hover:bg-gray-200 py-4 px-6 w-full">Yhteystiedot</li>
+            </ul>
+
+          </div>
+        </button>
+      </div>
+    </nav>
   </header>
   <div>
-  <div class="bg-gradient-to-tl from-mm-cool-grey to-mm-jet h-96 w-full bg-cover bg-center relative mt-8">
+  <div class="bg-gradient-to-tl from-mm-cool-grey to-mm-jet h-96 w-full bg-cover bg-center relative mt-8 z-10">
     <img src="/img/banner.jpg" alt="banneri" class="w-full h-full object-cover absolute mix-blend-overlay">
     <div class="p-20">
       <h1 class="text-mm-medium-carmine text-4xl font-bold relative">Tähän tosi hyvä slogan</h1>
@@ -38,12 +72,6 @@
 <div>
 
 <section class="flex lg:flex-row flex-col lg:items-start items-center">
-  <div class="stream info-box">
-    <h3 class="mb-5">Seuraa keskustelua livenä!</h3>
-    <button class="bg-mm-cool-grey font-bold ring-1 ring-mm-jet cursor-pointer rounded-lg w-40 h-10">Katso tästä!</button>
-    <h3 class="my-5">Haluatko osallistua keskusteluun?</h3>
-    <button class="bg-mm-cool-grey font-bold ring-1 ring-mm-jet cursor-pointer rounded-lg w-40 h-10">Aloita chat!</button>
-  </div>
   <div class="info-1 info-box">
     <h3>Mikä tapahtuma?</h3>
     <p>Miten luovuuden mahdollisuuksia huomioiva näkökulma työelämässä eri aloilla ja ammateissa otetaan käyttöön? 
@@ -64,7 +92,75 @@
       yrittäjille ja opiskelijoille. Luovuus tuo mahdollisuuksia kaikilla aloilla!</p>
     <p>Tapahtumaan on rajoitettu määrä paikkoja, ilmoittaudu ajoissa.</p>
   </div>
+  
 </section>
+
+<section class="flex flex-col md:flex-row">
+  <div class="stream info-box flex-col">
+    <h3 class="mb-5">Seuraa keskustelua livenä!</h3>
+    <video
+      id="my-video"
+      class="video-js vjs-theme-sea vjs-matrix">
+      <source src="/video/Pexels.mp4" type="video/webm" />
+      
+      <!-- <source
+      src="http://195.148.104.124:1935/jakelu/tailwind/playlist.m3u8"
+      type="application/x-mpegURL"
+    /> -->
+      <p class="vjs-no-js">
+        To view this video please enable JavaScript, and consider upgrading to a
+        web browser that
+        <a href="https://videojs.com/html5-video-support/" target="_blank"
+          >supports HTML5 video</a
+        >
+      </p>
+    </video>
+  </div>
+  <div class="stream info-box flex-col">
+    <h3 class="mb-5">Osallistu chattiin!</h3>
+    <div class="chat-window flex flex-col items-center">
+      <form id="join">
+          <h1 class="text-3xl font-bold text-center my-5">
+              Welcome to chat!
+          </h1>
+        <p class="text-lg mb-2">Choose room:</p>
+        <input class="mx-2" type="radio" id="1" name="room" value="1" />
+        <label class="text-lg" for="1">Room no.1</label>
+        <input class="mx-2" type="radio" id="2" name="room" value="2" />
+        <label class="text-lg" for="2">Room no.2</label>
+        <input class="mx-2" type="radio" id="3" name="room" value="3" />
+        <label class="text-lg" for="3">Room no.3</label>
+        <br />
+        <br />
+        <div class="flex flex-col items-center">
+        <input type="text" id="username" placeholder="Nickname" class="rounded-lg ring-1 ring-black w-80 h-8 p-2"> 
+        <br>
+          <button type="submit" class="rounded-lg ring-1 ring-black w-20 align-middle">Join!</button>
+      </div>
+        <br />
+        <br />
+      </form>
+      <div id="roomDiv" class="flex flex-col items-center m-5">
+          <div >
+              <h1 id="roomNumber" class="text-lg text-center"></h1>
+              <p class="text-lg text-center">Start chatting!</p>  
+              <button class="rounded-lg ring-1 ring-black w-28 m-3 align-middle" id="leaveBtn">Leave room</button>
+          </div>
+          <form id="msg-input">
+              <div class="flex items-center">
+                  <input type="text" id="message" placeholder="Write your message..." class="rounded-lg ring-1 ring-black w-80 h-8 p-2"> 
+                  <button type="submit" class="p-2 text-mm-jet rounded-full cursor-pointer">
+                      <svg class="w-6 h-6 rotate-90" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg>
+                  </button>
+              </div>
+          </form>
+      </div>
+      
+      <ul id="messages"></ul>
+  </div>
+  </div>
+</section>
+
 
 <footer>
 <div class="flex flex-col h-28 justify-center text-center bg-mm-cool-grey">
@@ -76,5 +172,21 @@
 </footer>
     
 </div>
+<script src="https://vjs.zencdn.net/7.20.2/video.min.js"></script>
+    <script>
+        
+        let myPlayer = document.querySelector(".video-js");
+            console.log(myPlayer);
+            videojs(myPlayer, {
+            controls: true,
+            autoplay: false,
+            preload: "auto",
+            // width: "640",
+            // height: "264",
+            poster: "img/banner.jpg",
+            fluid: true,
+            aspectRatio: "16:9", 
+            });
+        </script>
 </body>
 </html>
